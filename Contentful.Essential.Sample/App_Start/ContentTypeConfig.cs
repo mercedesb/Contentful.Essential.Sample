@@ -13,20 +13,22 @@ namespace Contentful.Essential.Sample
 
         public static void RegisterContentTypes()
         {
+            var configuration = GetConfig();
             IEnumerable<IContentType> registeredContentTypes = ServiceLocator.Current.GetAllInstances<IContentType>();
             var types = registeredContentTypes.Select(ct => ct.GetType()).Where(c => c.GetTypeInfo().IsClass && c.GetTypeInfo().GetCustomAttribute<ContentTypeAttribute>() != null).ToList();
-            var contentTypesToCreate = ContentTypeBuilder.InitializeContentTypes(types);
-            var createdContentTypes = ContentTypeBuilder.CreateContentTypes(contentTypesToCreate, GetConfig(), ServiceLocator.Current.GetInstance<IContentManagementClient>().Instance).Result;
+            var contentTypesToCreate = ContentTypeBuilder.InitializeContentTypes(types, configuration.CamelcaseFieldIdsAutomatically);
+            var createdContentTypes = ContentTypeBuilder.CreateContentTypes(contentTypesToCreate, configuration, ServiceLocator.Current.GetInstance<IContentManagementClient>().Instance).Result;
         }
 
-        private static ContentfulCodeFirstConfiguration GetConfig()
+        private static MWContentfulCodeFirstConfiguration GetConfig()
         {
-            return new ContentfulCodeFirstConfiguration
+            return new MWContentfulCodeFirstConfiguration
             {
                 ApiKey = ServiceLocator.Current.GetInstance<IContentfulOptions>().ManagementAPIKey,
                 SpaceId = ServiceLocator.Current.GetInstance<IContentfulOptions>().SpaceID,
                 ForceUpdateContentTypes = true,
-                PublishAutomatically = true
+                PublishAutomatically = true,
+                CamelcaseFieldIdsAutomatically = true
             };
         }
     }
