@@ -1,5 +1,8 @@
 ﻿@model HomeViewModel
 
+<h4>Search Patterns</h4>
+@Html.Partial("_SearchForm", Model.SearchModel)
+<h4>All Patterns</h4>
 <div class="row">
     <div class="col-md-4">
         <ul class="list-group">
@@ -7,8 +10,11 @@
             {
                 <li class="list-group-item">
                     <a href="/Pattern/Index/@pattern.Sys.Id">@pattern.Name</a>
-                </li>}
+                </li>
+            }
         </ul>
     </div>
+</div>
+<div class="row">
     <a href="/Pattern/Add">Add new pattern</a>
 </div>

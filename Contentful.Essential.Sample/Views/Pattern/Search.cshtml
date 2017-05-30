@@ -1,0 +1,23 @@
+﻿
+@model IEnumerable<Pattern>
+
+<div class="row">
+    <ul class="list-group">
+        @foreach (var pattern in Model)
+            {
+            <li class="list-group-item">
+                <div class="row">
+                    <p><a href="/Pattern/Index/@pattern.Sys.Id">@pattern.Name</a></p>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p>Yarn Weight: @pattern.YarnWeight</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p>@pattern.Yardage</p>
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
+</div>

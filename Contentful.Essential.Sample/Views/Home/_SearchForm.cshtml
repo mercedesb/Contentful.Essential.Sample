@@ -1,0 +1,28 @@
+﻿@model PatternSearchModel
+
+<form action="/Pattern/Search" method="post">
+    <div class="row">
+        <div class="row">
+            <div class="col-md-offset-2 col-md-10">@Html.EditorFor(m => m.SearchText)</div>
+        </div>
+        <div class="col-md-2">
+            @Html.LabelFor(m => m.YarnWeight)
+        </div>
+        <div class="col-md-10">
+            @Html.EditorFor(m => m.YarnWeight)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            @Html.LabelFor(m => m.MaxYardage)
+        </div>
+        <div class="col-md-10">
+            @Html.EditorFor(m => m.MaxYardage)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <input type="submit" value="Search" />
+        </div>
+    </div>
+</form>

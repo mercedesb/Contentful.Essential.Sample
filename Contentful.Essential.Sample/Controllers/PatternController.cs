@@ -7,6 +7,7 @@ using Contentful.Essential.Models.Configuration;
 using Contentful.Essential.Sample.Models;
 using Contentful.Essential.Sample.Models.ViewModels;
 using Contentful.Essential.Utility;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -96,6 +97,25 @@ namespace Contentful.Essential.Sample.Controllers
             newEntry = await _mgmtClient.Instance.PublishEntryAsync<PatternMgmt>(newEntry.SystemProperties.Id, newEntry.SystemProperties.Version.Value);
 
             return RedirectToAction("Index", new { id = newEntry.SystemProperties.Id });
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Search(PatternSearchModel model)
+        {
+            var builder = new QueryBuilder<Pattern>();
+
+            if (model.YarnWeight > 0)
+                builder = builder.FieldEquals(f => f.YarnWeight, model.YarnWeight.ToString());
+
+            if (model.MaxYardage > 0)
+                builder = builder.FieldLessThanOrEqualTo(f => f.Yardage, model.MaxYardage.ToString());
+
+            if (!string.IsNullOrWhiteSpace(model.SearchText))
+                builder = builder.FullTextSearch(model.SearchText);
+
+            IEnumerable<Pattern> result = await _repo.Search(builder);
+            return View(result);
+
         }
     }
 }

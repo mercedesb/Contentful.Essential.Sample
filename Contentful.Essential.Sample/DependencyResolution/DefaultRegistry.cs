@@ -50,6 +50,6 @@ namespace Contentful.Essential.Sample.DependencyResolution
             For<IOptions<MemoryCacheOptions>>().Use<MemoryCacheOptions>();
         }
 
-        #endregion
+        #endregion                         
     }
 }

@@ -19,7 +19,17 @@
 
 /* Set width on the form input elements since they're 100% wide by default */
 input,
-select,
-textarea {
+select{
     max-width: 280px;
+    margin-bottom:15px;
+}
+textarea {
+    max-width: 500px;
+}
+
+form {
+    border-radius:4px;
+    border: 1px solid #dddddd;
+    margin: 15px 0;
+    padding: 15px;
 }
