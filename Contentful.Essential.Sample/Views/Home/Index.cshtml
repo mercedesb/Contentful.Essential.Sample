@@ -6,8 +6,9 @@
             @foreach (var pattern in Model.Patterns)
             {
                 <li class="list-group-item">
-                    <a href="/room/Index/@pattern.Sys.Id">@pattern.Name</a>
+                    <a href="/Pattern/Index/@pattern.Sys.Id">@pattern.Name</a>
                 </li>}
         </ul>
     </div>
+    <a href="/Pattern/Add">Add new pattern</a>
 </div>
