@@ -5,11 +5,11 @@ using System.Web.Http;
 
 namespace Contentful.Essential.Sample.Controllers.api
 {
-    [RoutePrefix("api/webhookdispatch")]
-    public class WebHookDispatchController : ApiController
+    [RoutePrefix("api/invalidatecache")]
+    public class CacheInvalidationController : ApiController
     {
         protected readonly IPurgeCachedContentRepository _purge;
-        public WebHookDispatchController(IPurgeCachedContentRepository purge)
+        public CacheInvalidationController(IPurgeCachedContentRepository purge)
         {
             _purge = purge;
         }
