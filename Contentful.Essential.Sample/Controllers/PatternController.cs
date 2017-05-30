@@ -1,6 +1,5 @@
 ﻿using Contentful.CodeFirst;
 using Contentful.Core;
-using Contentful.Core.Images;
 using Contentful.Core.Models;
 using Contentful.Core.Search;
 using Contentful.Essential.Models;
@@ -41,9 +40,6 @@ namespace Contentful.Essential.Sample.Controllers
 
             model.CurrentPattern = pattern;
 
-            if (model.CurrentPattern.FinishedProductImages != null)
-                model.ManipulatedImageUrls = model.CurrentPattern.FinishedProductImages.Select(img => $"{img.File.Url}{ImageUrlBuilder.New().SetWidth(250).Build()}");
-
             return View(model);
         }
 
@@ -57,16 +53,13 @@ namespace Contentful.Essential.Sample.Controllers
 
             // will resolve references (IContentRepository<> does this for you)
             ContentTypeAttribute contentTypeIdAttr = (ContentTypeAttribute)typeof(Pattern).GetCustomAttributes(typeof(ContentTypeAttribute), true).First() ?? new ContentTypeAttribute();
-            var builder = new QueryBuilder<Pattern>().ContentTypeIs(contentTypeIdAttr.Id ?? typeof(Pattern).FullName).FieldEquals(f => f.Sys.Id, id);
+            var builder = new QueryBuilder<Pattern>().ContentTypeIs(contentTypeIdAttr.Id ?? typeof(Pattern).Name).FieldEquals(f => f.Sys.Id, id);
             pattern = (await _client.Instance.GetEntriesAsync<Pattern>(builder)).FirstOrDefault();
 
             if (pattern == null)
                 return View(model);
 
             model.CurrentPattern = pattern;
-
-            if (model.CurrentPattern.FinishedProductImages != null)
-                model.ManipulatedImageUrls = model.CurrentPattern.FinishedProductImages.Select(img => $"{img.File.Url}{ImageUrlBuilder.New().SetWidth(250).Build()}");
 
             return View("Index", model);
         }
@@ -84,9 +77,6 @@ namespace Contentful.Essential.Sample.Controllers
                 return View(model);
 
             model.CurrentPattern = pattern;
-
-            if (model.CurrentPattern.FinishedProductImages != null)
-                model.ManipulatedImageUrls = model.CurrentPattern.FinishedProductImages.Select(img => $"{img.File.Url}{ImageUrlBuilder.New().SetWidth(250).Build()}");
 
             return View("Index", model);
         }
