@@ -5,7 +5,6 @@ using System.Web.Http;
 
 namespace Contentful.Essential.Sample.Controllers.api
 {
-    [RoutePrefix("api/invalidatecache")]
     public class CacheInvalidationController : ApiController
     {
         protected readonly IPurgeCachedContentRepository _purge;
