@@ -13,8 +13,24 @@
                 </li>
             }
         </ul>
+        <div class="row">
+            <a href="/Pattern/Add">Add new pattern</a>
+        </div>
     </div>
-</div>
-<div class="row">
-    <a href="/Pattern/Add">Add new pattern</a>
+    <div class="col-md-8">
+        @foreach (var row in Model.GalleryRows)
+        {
+            <div class="row">
+                @foreach (var img in row)
+                {
+                    <div class="col-md-4">
+                        <img src="@img" />
+                    </div>
+                }
+            </div>
+        }
+        <div class="row">
+            <a class="pull-right" href="/Gallery">View all</a>
+        </div>
+    </div>
 </div>

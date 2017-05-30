@@ -1,0 +1,13 @@
+﻿@model GalleryViewModel
+
+@foreach (var row in Model.GalleryRows)
+{
+    <div class="row">
+        @foreach (var img in row)
+        {
+            <div class="col-md-3">
+                <img src="@img" />
+            </div>
+        }
+    </div>
+}

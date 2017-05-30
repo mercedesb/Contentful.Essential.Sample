@@ -1,9 +1,13 @@
 ﻿using Contentful.Core;
+using Contentful.Core.Images;
+using Contentful.Core.Models;
+using Contentful.Core.Search;
 using Contentful.Essential.Models;
 using Contentful.Essential.Models.Configuration;
 using Contentful.Essential.Sample.Models;
 using Contentful.Essential.Sample.Models.ViewModels;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -33,6 +37,9 @@ namespace Contentful.Essential.Sample.Controllers
                 return View(model);
 
             model.Patterns = patterns;
+            var queryBuilder = QueryBuilder<Asset>.New.MimeTypeIs(MimeTypeRestriction.Image).Limit(4);
+            var assets = await _client.Instance.GetAssetsAsync(queryBuilder);
+            model.GalleryImages = assets.Select(img => img.File != null ? $"{img.File.Url}{ImageUrlBuilder.New().SetWidth(250).SetHeight(250).SetFocusArea(ImageFocusArea.Default).Build()}" : string.Empty);
 
             return View(model);
         }
