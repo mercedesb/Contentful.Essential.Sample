@@ -310,7 +310,7 @@
     <Compile Include="Configuration\ContentfulEssentialSection.cs" />
     <Compile Include="Configuration\ContentfulOptionsElement.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\api\WebhookDispatchController.cs" />
+    <Compile Include="Controllers\api\CacheInvalidationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="DependencyResolution\ControllerConvention.cs" />
