@@ -24,7 +24,6 @@ namespace Contentful.Essential.Sample.DependencyResolution
     using Microsoft.Extensions.Options;
     using StructureMap.Configuration.DSL;
     using StructureMap.Graph;
-    using WebHooks;
 
     public class DefaultRegistry : Registry
     {
@@ -40,7 +39,6 @@ namespace Contentful.Essential.Sample.DependencyResolution
                     scan.WithDefaultConventions();
                     scan.With(new ControllerConvention());
                     scan.AddAllTypesOf<IContentType>();
-                    scan.AddAllTypesOf<IWebHookHandler>();
                 });
             //For<IExample>().Use<Example>();
             For<IContentfulOptions>().Use<ContentfulConfigurationManager>();
