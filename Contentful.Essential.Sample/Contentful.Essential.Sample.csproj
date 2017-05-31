@@ -310,6 +310,7 @@
     <Compile Include="App_Start\StructuremapMvc.cs" />
     <Compile Include="App_Start\StructuremapWebApi.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Configuration\ContentfulAppSettingsManager.cs" />
     <Compile Include="Configuration\ContentfulConfigurationManager.cs" />
     <Compile Include="Configuration\ContentfulEssentialSection.cs" />
     <Compile Include="Configuration\ContentfulOptionsElement.cs" />

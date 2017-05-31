@@ -24,6 +24,7 @@ namespace Contentful.Essential.Sample.DependencyResolution
     using Microsoft.Extensions.Options;
     using StructureMap.Configuration.DSL;
     using StructureMap.Graph;
+    using System.Configuration;
 
     public class DefaultRegistry : Registry
     {
@@ -41,7 +42,11 @@ namespace Contentful.Essential.Sample.DependencyResolution
                     scan.AddAllTypesOf<IContentType>();
                 });
             //For<IExample>().Use<Example>();
-            For<IContentfulOptions>().Use<ContentfulConfigurationManager>();
+            if (ConfigurationManager.AppSettings["ContentfulConfiguration"] == "appSettings")
+                For<IContentfulOptions>().Use<ContentfulAppSettingsManager>();
+            else
+                For<IContentfulOptions>().Use<ContentfulConfigurationManager>();
+
             For<IContentDeliveryClient>().Use<ContentDelivery>().Singleton();
             For<IContentManagementClient>().Use<ContentManagement>().Singleton();
             For(typeof(IContentRepository<>)).Use(typeof(BaseCachedContentRepository<>));
