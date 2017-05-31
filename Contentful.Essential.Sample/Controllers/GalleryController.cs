@@ -21,7 +21,7 @@ namespace Contentful.Essential.Sample.Controllers
         public async Task<ActionResult> Index()
         {
             GalleryViewModel model = new GalleryViewModel();
-            var queryBuilder = QueryBuilder<Asset>.New.MimeTypeIs(MimeTypeRestriction.Image).Limit(4);
+            var queryBuilder = QueryBuilder<Asset>.New.MimeTypeIs(MimeTypeRestriction.Image);
             var assets = await _client.Instance.GetAssetsAsync(queryBuilder);
             model.GalleryImages = assets.Select(img => img.File != null ? $"{img.File.Url}{ImageUrlBuilder.New().SetWidth(275).UseProgressiveJpg().Build()}" : string.Empty);
 
