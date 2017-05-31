@@ -49,7 +49,7 @@ namespace Contentful.Essential.Sample.DependencyResolution
 
             For<IContentDeliveryClient>().Use<ContentDelivery>().Singleton();
             For<IContentManagementClient>().Use<ContentManagement>().Singleton();
-            For(typeof(IContentRepository<>)).Use(typeof(BaseCachedContentRepository<>));
+            For(typeof(IContentRepository<>)).Use(typeof(BaseContentRepository<>));
             For<IPurgeCachedContentRepository>().Use<BaseCachedContentRepositoryPurger>();
             For<IMemoryCache>().Use<MemoryCache>().Singleton();
             For<IOptions<MemoryCacheOptions>>().Use<MemoryCacheOptions>();

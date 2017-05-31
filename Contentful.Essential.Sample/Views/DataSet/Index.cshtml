@@ -1,0 +1,96 @@
+﻿@model DatasetViewModel
+<div class="row">
+	<ul class="breadcrumb">
+		<li><a href="/">Home</a></li>
+		<li><a href="/category/Index/@Model.Category.Sys.Id">@Model.Category.Name</a></li>
+		<li class="active">@Model.Dataset.Name</li>
+	</ul>
+</div>
+
+<div class="row">
+    <h2>@Html.DisplayFor(m => m.Dataset.Name)</h2>
+    <p>@Html.DisplayFor(m => m.Dataset.PageContent)</p>
+</div>
+
+
+<div class="row">
+	<div class="range-slider col-md-3">
+		<input id="range-slider" class="range-slider__range" type="range" min="@Model.MinYear" max="@Model.MaxYear" value="@Model.MinYear">
+		<span class="range-slider__value">0</span>
+	</div>
+	<div id="container" class="col-md-6" style="height: 550px;  margin: 0 auto"></div>
+</div>
+<div class="row caption">
+	<p>@Html.DisplayFor(m => m.DatasetDescription)</p>
+</div>
+
+@section scripts {
+	<script>
+		$.getJSON('/ChicagoNeighborhoods.geo.json', function (geojson) {
+			var datasets = @Html.Raw(Model.JsonMapData);
+
+			var chart = Highcharts.mapChart('container', {
+				chart: {
+					map: geojson
+				},
+
+				title: {
+					text: '@Model.MinYear'
+				},
+
+				mapNavigation: {
+					enabled: true,
+					buttonOptions: {
+						verticalAlign: 'bottom'
+					}
+				},
+
+				colorAxis: {
+					max: @Model.MaxValue,
+					min: 0
+				},
+
+				series: [{
+					data: datasets[@Model.MinYear],
+					name: '# of Requests',
+					states: {
+						hover: {
+							color: '#BADA55'
+						}
+					},
+					tooltip: {
+						pointFormat: '{point.properties.community}: {point.value}<br/>'
+					}
+
+				}]
+			});
+
+			
+			var rangeSlider = function(){
+				var slider = $('.range-slider'),
+					range = $('.range-slider__range'),
+					value = $('.range-slider__value');
+    
+				slider.each(function(){
+
+					value.each(function(){
+						var value = $(this).prev().attr('value');
+						$(this).html(value);
+					});
+
+					range.on('input', function(){
+						$(this).next(value).html(this.value);
+						chart.series[0].setData(datasets[+this.value]);
+						chart.setTitle({text: +this.value });
+					});
+				});
+			};
+
+			rangeSlider();
+		});
+	</script>
+}
+
+
+
+
