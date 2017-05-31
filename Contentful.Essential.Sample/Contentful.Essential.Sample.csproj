@@ -45,12 +45,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Contentful.Core, Version=0.13.7.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\contentful.csharp.0.13.7-beta\lib\netstandard1.4\Contentful.Core.dll</HintPath>
+    <Reference Include="Contentful.Core, Version=0.13.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\contentful.csharp.0.13.8-beta\lib\netstandard1.4\Contentful.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Contentful.Essential, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Contentful.Essential.0.16.0-beta\lib\netstandard1.4\Contentful.Essential.dll</HintPath>
+      <HintPath>..\packages\Contentful.Essential.0.16.1-beta\lib\netstandard1.4\Contentful.Essential.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Contentful.Essential.CodeFirst, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Contentful.Essential.CodeFirst.0.1.0-beta\lib\netstandard1.4\Contentful.Essential.CodeFirst.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
