@@ -46,13 +46,8 @@ namespace Contentful.Essential.Sample.Controllers
             var chicagoSodaClient = new SodaClient("data.cityofchicago.org");
             ResourceMetadata metadata = chicagoSodaClient.GetMetadata(cmsDataset.APIEndpoint);
             model.DatasetDescription = metadata.Description;
-            //var soql1 = new SoqlQuery().Select("community_area", "count(*)", "date_trunc_y(creation_date)")
-            //				.As("community_area", "count", "year")
-            //				.Group("year", "community_area");
-            //IEnumerable<YearlyRequestAggregate> results = chicagoClient.Query<YearlyRequestAggregate>(soql1, cmsDataset.APIEndpoint);
 
             IEnumerable<YearlyRequestAggregate> results = GetYearlyRequestAggregates(cmsDataset.APIEndpoint);
-
             IEnumerable<IGrouping<int, YearlyRequestAggregate>> groupedByYear = results.GroupBy(r => r.year.Year).Where(grp => grp.Key >= model.Dataset.StartDate.Year).OrderBy(grp => grp.Key);
             model.MapData = groupedByYear.ToDictionary(grp => grp.Key, grp => grp.Select(yra => new CommunityArea(yra.community_area, yra.count)));
             model.MaxValue = results.Max(yra => int.Parse(yra.count));
