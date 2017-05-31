@@ -24,6 +24,7 @@ namespace Contentful.Essential.Sample.DependencyResolution
     using Microsoft.Extensions.Options;
     using StructureMap.Configuration.DSL;
     using StructureMap.Graph;
+    using System.Configuration;
 
     public class DefaultRegistry : Registry
     {
