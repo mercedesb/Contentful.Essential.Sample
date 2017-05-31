@@ -37,7 +37,7 @@ namespace Contentful.Essential.Sample.Controllers
                 return View(model);
 
             model.Patterns = patterns;
-            var queryBuilder = QueryBuilder<Asset>.New.MimeTypeIs(MimeTypeRestriction.Image).Limit(4);
+            var queryBuilder = QueryBuilder<Asset>.New.MimeTypeIs(MimeTypeRestriction.Image).Limit(6);
             var assets = await _client.Instance.GetAssetsAsync(queryBuilder);
             model.GalleryImages = assets.Select(img => img.File != null ? $"{img.File.Url}{ImageUrlBuilder.New().SetWidth(250).SetHeight(250).SetFocusArea(ImageFocusArea.Default).Build()}" : string.Empty);
 
