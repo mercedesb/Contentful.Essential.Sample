@@ -1,30 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using Contentful.Essential.Models;
+using Contentful.Essential.Sample.Models;
+using Contentful.Essential.Sample.Models.ViewModels;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace Contentful.Essential.Sample.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        protected readonly IContentRepository<Room> _repo;
+        public HomeController(IContentRepository<Room> repo)
         {
-            return View();
+            _repo = repo;
         }
-
-        public ActionResult About()
+        public async Task<ActionResult> Index()
         {
-            ViewBag.Message = "Your application description page.";
+            HomeViewModel model = new HomeViewModel();
+            model.Rooms = await _repo.GetAll();
 
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            return View(model);
         }
     }
 }

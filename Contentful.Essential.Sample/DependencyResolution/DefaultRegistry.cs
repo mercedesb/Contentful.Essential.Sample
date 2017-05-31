@@ -22,6 +22,7 @@ namespace Contentful.Essential.Sample.DependencyResolution
     using Essential.Models.Configuration;
     using Microsoft.Extensions.Caching.Memory;
     using Microsoft.Extensions.Options;
+    using Models;
     using StructureMap.Configuration.DSL;
     using StructureMap.Graph;
 
@@ -45,6 +46,7 @@ namespace Contentful.Essential.Sample.DependencyResolution
             For<IContentDeliveryClient>().Use<ContentDelivery>().Singleton();
             For<IContentManagementClient>().Use<ContentManagement>().Singleton();
             For(typeof(IContentRepository<>)).Use(typeof(BaseCachedContentRepository<>));
+            For<IContentRepository<Room>>().Use<BaseContentRepository<Room>>();
             For<IPurgeCachedContentRepository>().Use<BaseCachedContentRepositoryPurger>();
             For<IMemoryCache>().Use<MemoryCache>().Singleton();
             For<IOptions<MemoryCacheOptions>>().Use<MemoryCacheOptions>();

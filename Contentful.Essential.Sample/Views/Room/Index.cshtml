@@ -1,0 +1,134 @@
+﻿@model RoomViewModel
+<div class="container">
+    <div class="row">
+        <div class="col-md-2">
+            <h3>
+                @Html.DisplayFor(m => m.CurrentRoom.Name)
+            </h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            @Html.LabelFor(m => m.CurrentRoom.Seats)
+        </div>
+        <div class="col-md-10">
+            @Html.DisplayFor(m => m.CurrentRoom.Seats)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            @Html.LabelFor(m => m.CurrentRoom.HasTable)
+        </div>
+        <div class="col-md-3">
+            @Html.LabelFor(m => m.CurrentRoom.HasAppleTV)
+        </div>
+        <div class="col-md-3">
+            @Html.LabelFor(m => m.CurrentRoom.HasChromecast)
+        </div>
+        <div class="col-md-3">
+            @Html.LabelFor(m => m.CurrentRoom.HasConferencing)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            @Html.DisplayFor(m => m.CurrentRoom.HasTable)
+        </div>
+        <div class="col-md-3">
+            @Html.DisplayFor(m => m.CurrentRoom.HasAppleTV)
+        </div>
+        <div class="col-md-3">
+            @Html.DisplayFor(m => m.CurrentRoom.HasChromecast)
+        </div>
+        <div class="col-md-3">
+            @Html.DisplayFor(m => m.CurrentRoom.HasConferencing)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            @Html.LabelFor(m => m.CurrentRoom.AppleTVName)
+        </div>
+        <div class="col-md-10">
+            @Html.DisplayFor(m => m.CurrentRoom.AppleTVName)
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div id='calendar'></div>
+    </div>
+</div>
+
+
+
+@section head {
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css" />
+}
+@section scripts  {
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth() + 1; //January is 0!
+            var yyyy = today.getFullYear();
+
+            $('#calendar').fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'agendaWeek,agendaDay'
+                },
+                defaultDate: yyyy + '-' + mm + '-' + dd,
+                defaultView: 'agendaWeek',
+                views: {
+                    agenda: {
+                        // options apply to agendaWeek and agendaDay views
+                        minTime: "09:00:00",
+                        maxTime: "18:00:00"
+                    }
+                },
+                navLinks: true, // can click day/week names to navigate views
+                selectable: true,
+                selectHelper: true,
+                select: function (start, end) {
+                    var title = prompt('Subject');
+                    var eventData;
+                    if (title) {
+                        eventData = {
+                            subject: title,
+                            start: new Date(start.toDate()).toJSON(),
+                            end: new Date(end.toDate()).toJSON()
+                        };
+                        $.ajax({
+                            url: "/api/reservation/@Model.CurrentRoom.Sys.Id",
+                            type: "POST",
+                            data: eventData,
+                            success: function (data, textStatus, jqXHR) {
+                                $('#calendar').fullCalendar('renderEvent', data, true); // stick? = true
+
+                                //data - response from server
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+
+                            }
+                        });
+                    }
+                    $('#calendar').fullCalendar('unselect');
+                },
+                editable: true,
+                eventLimit: true, // allow "more" link when too many events
+                weekends: false,
+                businessHours: {
+                    start: '9:00', // a start time (9am in this example)
+                    end: '18:00', // an end time (6pm in this example)
+                },
+                events: JSON.parse('@Html.Raw(@Model.EventsJson)')
+            });
+
+        });
+
+    </script>
+}

@@ -1,0 +1,7 @@
+﻿@model RoomReservation
+
+<div class="row">
+    <h3>@Html.DisplayFor(m => m.Subject)</h3>
+    <h5>@Html.DisplayFor(m => m.Start.Value.ToShortDateString()) - @Html.DisplayFor(m => m.End.Value.ToShortDateString())</h5>
+    <p>Reserved by: @Html.DisplayFor(m => m.ReservedBy)</p>
+</div>
