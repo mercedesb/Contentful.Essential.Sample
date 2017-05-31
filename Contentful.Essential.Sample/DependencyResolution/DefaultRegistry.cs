@@ -42,7 +42,9 @@ namespace Contentful.Essential.Sample.DependencyResolution
                     scan.AddAllTypesOf<IContentType>();
                 });
             //For<IExample>().Use<Example>();
-            For<IContentfulOptions>().Use<ContentfulConfigurationManager>();
+
+
+            For<IContentfulOptions>().Use<ContentfulAppSettingsManager>();
             For<IContentDeliveryClient>().Use<ContentDelivery>().Singleton();
             For<IContentManagementClient>().Use<ContentManagement>().Singleton();
             For(typeof(IContentRepository<>)).Use(typeof(BaseCachedContentRepository<>));
