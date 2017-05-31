@@ -139,15 +139,10 @@ namespace Contentful.Essential.Sample.Http
                 {
                     _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(CultureInfo.CurrentCulture.TextInfo.ToTitleCase(result.TokenType.ToLower()), result.AccessToken);
                 }
-                else
-                {
-                    // SystemLog.Log(this, string.Format("Unable to get access token for {0}; Reason: {1}", baseUrl, result.Error), Level.Error);
-                }
                 return result.ExpiresIn;
             }
             catch (Exception ex)
             {
-                // SystemLog.Log(this, string.Format("Unable to get access token for {0}; Reason: {1}", baseUrl, ex.Message), Level.Error, ex);
                 return 0;
             }
         }
@@ -194,21 +189,17 @@ namespace Contentful.Essential.Sample.Http
                 }
                 else
                 {
-                    // SystemLog.Log(this, string.Format("{0}: Status {1}, {2}", queryPath, response.StatusCode, response.ReasonPhrase), Level.Error);
                     return default(T);
                 }
             }
 
             catch (TaskCanceledException timeoutEx)
             {
-                // SystemLog.Log(this, string.Format("{0}", queryPath), Level.Error, timeoutEx);
                 return default(T);
             }
 
             catch (TEx ex)
             {
-                // SystemLog.Log(this, string.Format("{0}", queryPath), Level.Error, ex);
-
                 if (onerror != null)
                 {
                     onerror(ex);
@@ -248,7 +239,6 @@ namespace Contentful.Essential.Sample.Http
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    // SystemLog.Log(this, string.Format("{0}: Status {1}, {2}", queryPath, response.StatusCode, response.ReasonPhrase), Level.Error);
                     T result = response.Content.ReadAsAsync<T>().Result;
                     return (T)Convert.ChangeType(result, typeof(T));
                 }
@@ -265,14 +255,11 @@ namespace Contentful.Essential.Sample.Http
 
             catch (TaskCanceledException timeoutEx)
             {
-                // SystemLog.Log(this, string.Format("{0}", queryPath), Level.Error, timeoutEx);
                 return default(T);
             }
 
             catch (TEx ex)
             {
-                // SystemLog.Log(this, string.Format("{0}", queryPath), Level.Error, ex);
-
                 if (onerror != null)
                 {
                     onerror(ex);
@@ -286,7 +273,6 @@ namespace Contentful.Essential.Sample.Http
         public void Dispose()
         {
             _client.Dispose();
-            //ServicePointManager.ServerCertificateValidationCallback -= CertCallback;
         }
     }
 }
