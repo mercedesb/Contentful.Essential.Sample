@@ -50,7 +50,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Contentful.Essential, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Contentful.Essential.0.16.1-beta\lib\netstandard1.4\Contentful.Essential.dll</HintPath>
+      <HintPath>..\packages\Contentful.Essential.0.16.3-beta\lib\netstandard1.4\Contentful.Essential.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Contentful.Essential.CodeFirst, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
